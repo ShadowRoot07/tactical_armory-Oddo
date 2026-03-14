@@ -12,9 +12,11 @@ jobs:
 
       - name: Setup Docker and Odoo
         run: |
-          docker-compose up -d
+          # Cambiamos 'docker-compose' por 'docker compose'
+          docker compose up -d
           echo "Esperando a que Odoo despierte..."
           sleep 15
+
 
       - name: Install LocalTunnel and Get IP
         run: |
