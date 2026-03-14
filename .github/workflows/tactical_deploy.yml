@@ -1,7 +1,7 @@
 name: Tactical Armory Live Server
 
 on:
-  workflow_dispatch: # Se activa manualmente desde GitHub o Termux con 'gh'
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -12,20 +12,38 @@ jobs:
 
       - name: Setup Docker and Odoo
         run: |
-          # Cambiamos 'docker-compose' por 'docker compose'
           docker compose up -d
-          echo "Esperando a que Odoo despierte..."
-          sleep 15
-
+          echo "Esperando 20 segundos a que los contenedores de Odoo y Postgres se estabilicen..."
+          sleep 20
 
       - name: Install LocalTunnel and Get IP
         run: |
           npm install -g localtunnel
-          echo "---------------------------------------------------"
-          echo "TU IP PARA EL TUNEL ES:"
+          
+          echo "==================================================="
+          echo "             DATOS DE CONEXION TACTICA             "
+          echo "==================================================="
+          
+          # Obtenemos la IP y la mostramos inmediatamente
+          echo -n "TU IP PARA EL TUNEL ES: "
           curl -s https://localtunnel.github.io/tunnelbot/ip
+          echo ""
+          
           echo "---------------------------------------------------"
-          # Iniciamos el túnel y lo mantenemos vivo por 30 minutos (1800s)
-          lt --port 8069 --subdomain shadowroot-tactical & 
+          echo "INICIANDO TUNEL PUBLICO..."
+          
+          # Ejecutamos lt y redirigimos la salida a un archivo temporal para leerla
+          lt --port 8069 --subdomain shadowroot-tactical > tunnel.log 2>&1 &
+          
+          # Esperamos a que el túnel se genere
+          sleep 8
+          
+          echo "URL DE ACCESO:"
+          cat tunnel.log
+          echo "---------------------------------------------------"
+          echo "EL SERVIDOR ESTARA ACTIVO POR 30 MINUTOS"
+          echo "==================================================="
+          
+          # Mantener el job vivo
           sleep 1800
 
