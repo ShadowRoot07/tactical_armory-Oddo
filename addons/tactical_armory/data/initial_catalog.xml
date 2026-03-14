@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="prod_ak47_square" model="product.template">
+        <field name="name">AK-47 (Simulación)</field>
+        <field name="categ_id" ref="cat_rifles"/>
+        <field name="list_price">5.00</field>
+        <field name="type">consu</field>
+        <field name="description">AK-47 C/30 tiros. Modelo de simulación táctica.</field>
+        <field name="square_token">6AXZ2RM24ERLTRCV4LJTZZCH</field>
+    </record>
+
+    <record id="prod_ar15_square" model="product.template">
+        <field name="name">AR-15/M4 (Simulación)</field>
+        <field name="categ_id" ref="cat_rifles"/>
+        <field name="list_price">5.00</field>
+        <field name="type">consu</field>
+        <field name="description">AR-15/M4 C/38 Tiros. Alta fidelidad táctica.</field>
+        <field name="square_token">JDBS3G3TQ4XEIMB62X52MXNE</field>
+    </record>
+</odoo>
+

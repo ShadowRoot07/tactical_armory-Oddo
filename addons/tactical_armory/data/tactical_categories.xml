@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="cat_rifles" model="product.category">
+        <field name="name">Rifles (Simulación)</field>
+        <field name="parent_id" ref="product.product_category_all"/>
+    </record>
+
+    <record id="cat_arcos" model="product.category">
+        <field name="name">Arcos y Arquería</field>
+        <field name="parent_id" ref="product.product_category_all"/>
+    </record>
+</odoo>
+

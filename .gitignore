@@ -1,0 +1,17 @@
+# Docker y sistema
+.env
+docker-compose.override.yml
+*.pyc
+__pycache__/
+
+# Recursos pesados (No los subimos al repo para no saturarlo)
+resources/
+*.tar.gz
+*.zip
+*.mov
+*.MOV
+
+# Odoo data
+filestore/
+sessions/
+
