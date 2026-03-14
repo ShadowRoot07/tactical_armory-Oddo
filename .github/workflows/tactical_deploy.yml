@@ -13,7 +13,7 @@ jobs:
       - name: Setup Docker and Odoo
         run: |
           docker compose up -d
-          echo "Esperando 20 segundos a que los contenedores de Odoo y Postgres se estabilicen..."
+          echo "Esperando a que Odoo despierte..."
           sleep 20
 
       - name: Install LocalTunnel and Get IP
@@ -21,29 +21,28 @@ jobs:
           npm install -g localtunnel
           
           echo "==================================================="
-          echo "             DATOS DE CONEXION TACTICA             "
+          echo "             DATOS DE ACCESO TACTICO               "
           echo "==================================================="
           
-          # Obtenemos la IP y la mostramos inmediatamente
-          echo -n "TU IP PARA EL TUNEL ES: "
-          curl -s https://localtunnel.github.io/tunnelbot/ip
+          # Intentamos obtener la IP de 3 fuentes distintas para asegurar
+          echo -n "TU IP (Password): "
+          curl -s https://ifconfig.me || curl -s https://api.ipify.org || echo "Fallo al obtener IP"
           echo ""
           
           echo "---------------------------------------------------"
-          echo "INICIANDO TUNEL PUBLICO..."
+          echo "GENERANDO URL PUBLICA..."
           
-          # Ejecutamos lt y redirigimos la salida a un archivo temporal para leerla
+          # Ejecutamos el túnel. Si el subdominio falla, nos dará una URL aleatoria
           lt --port 8069 --subdomain shadowroot-tactical > tunnel.log 2>&1 &
           
-          # Esperamos a que el túnel se genere
-          sleep 8
+          # Esperamos 10 segundos para que el túnel se conecte bien
+          sleep 10
           
-          echo "URL DE ACCESO:"
+          echo "URL DE ENTRADA:"
           cat tunnel.log
           echo "---------------------------------------------------"
-          echo "EL SERVIDOR ESTARA ACTIVO POR 30 MINUTOS"
+          echo "El servidor se apagara en 30 minutos."
           echo "==================================================="
           
-          # Mantener el job vivo
           sleep 1800
 
